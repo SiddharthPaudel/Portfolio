@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -19,7 +20,7 @@ const Contact = () => {
     setStatus("Sending...");
 
     try {
-      await axios.post("http://localhost:5000/send-email", formData);
+      await axios.post(`${BACKEND_URL}/send-email`, formData);
       setStatus("✅ Message sent successfully!");
       setFormData({ name: "", email: "", message: "" });
 
