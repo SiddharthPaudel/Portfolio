@@ -45,7 +45,7 @@ const Projects = () => {
       title: "Quick Stay",
       desc: "Hotel booking platform.",
       tech: ["React", "Node.js", "MongoDB"],
-      github: "https://github.com/SiddharthPaudel/hotel_booking",
+      github: "https://github.com/SiddharthPaudel/Hotel-Booking-",
     },
     {
       title: "Book Shelf",
