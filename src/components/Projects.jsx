@@ -79,14 +79,14 @@ const Projects = () => {
       title: "Portfolio",
       desc: "My Portfolio.",
       tech: ["React", "Node.js", "Tailwind CSS"], // technologies used
-      github: "https://github.com/yourusername/myawesomeproject",
+      github: "https://github.com/SiddharthPaudel/Portfolio",
       image: port, // import your image at the top
     },
     {
     title: "Finance Tracker",
     desc: "Track your personal finance, expenses, and budget easily.",
     tech: ["React", "Node.js", "MongoDB", "Tailwind CSS"],
-    github: "https://github.com/yourusername/finance-tracker",
+    github: "https://github.com/SiddharthPaudel/Finance-Tracker",
     image: finance
   }
 
