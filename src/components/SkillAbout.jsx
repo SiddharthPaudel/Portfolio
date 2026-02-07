@@ -25,7 +25,7 @@ const SkillsAbout = () => {
 
   return (
     <section
-      id="skills-about"
+      id="skills & education"
       className="max-w-6xl mx-auto px-4 py-32 grid md:grid-cols-2 gap-16"
     >
       {/* ABOUT + EDUCATION */}
