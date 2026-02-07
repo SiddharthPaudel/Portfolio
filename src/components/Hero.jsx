@@ -1,6 +1,11 @@
 import React, { memo } from "react";
 import { LazyMotion, domAnimation, motion } from "framer-motion";
-import { FaGithub, FaLinkedin, FaInstagram, FaWhatsapp } from "react-icons/fa";
+import {
+  FaGithub,
+  FaLinkedin,
+  FaInstagram,
+  FaWhatsapp,
+} from "react-icons/fa";
 import profilePic from "../images/pic.jpg";
 
 const HeroContent = memo(() => {
@@ -11,102 +16,101 @@ const HeroContent = memo(() => {
     whatsapp: "https://wa.me/9849800636",
   };
 
-  return (
-    <section className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center py-20">
-      {/* Text Section */}
-      <div>
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="text-4xl md:text-5xl font-bold font-heading leading-tight"
-        >
-          Hi, I’m{" "}
-          <span className="bg-gradient-to-r from-purple-500 to-blue-500 bg-clip-text text-transparent">
-            Siddhartha
-          </span>{" "}
-          — a Frontend Developer.
-        </motion.h1>
+  const icons = {
+    github: FaGithub,
+    linkedin: FaLinkedin,
+    instagram: FaInstagram,
+    whatsapp: FaWhatsapp,
+  };
 
-        <motion.p
+  return (
+    <section
+      id="home"
+      className="max-w-6xl mx-auto px-6 pt-28 pb-32"
+    >
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+
+        {/* Text Section */}
+        <div>
+          <motion.h1
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-4xl md:text-5xl font-semibold text-gray-900 leading-tight"
+          >
+            Hi, I’m{" "}
+            <span className="text-purple-500">
+              Siddhartha Paudel
+            </span>{" "}
+            — a Frontend Developer.
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.15 }}
+            className="mt-6 text-lg text-gray-600 max-w-xl"
+          >
+            I craft responsive, user-friendly web applications using React,
+            Tailwind CSS, and modern frontend tools. Passionate about clean UI,
+            accessibility, and smooth user experience.
+          </motion.p>
+
+          {/* Socials */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            className="mt-8 flex gap-5"
+          >
+            {Object.entries(social).map(([key, link]) => {
+              const Icon = icons[key];
+              return (
+                <a
+                  key={key}
+                  href={link}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-gray-600 hover:text-purple-600 transition-colors text-xl"
+                >
+                  <Icon />
+                </a>
+              );
+            })}
+          </motion.div>
+        </div>
+
+        {/* Profile Section */}
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.3, duration: 0.7 }}
-          className="mt-6 text-gray-700 max-w-xl text-lg font-sans"
+          transition={{ delay: 0.2 }}
+          className="flex justify-center md:justify-end"
         >
-          I craft responsive, user-friendly web applications using React, Tailwind CSS,
-          and modern frontend tools. Passionate about clean UI, accessibility, and smooth
-          user experience.
-        </motion.p>
+          <div className="text-center">
+            <div className="w-44 h-44 mx-auto rounded-full overflow-hidden">
+              <img
+                src={profilePic}
+                alt="Siddhartha Paudel"
+                className="w-full h-full object-cover"
+              />
+            </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.7 }}
-          className="mt-8 flex flex-wrap gap-4"
-        >
-          {Object.entries(social).map(([key, link]) => {
-            const icons = {
-              github: <FaGithub />,
-              linkedin: <FaLinkedin />,
-              instagram: <FaInstagram />,
-              whatsapp: <FaWhatsapp />,
-            };
-            return (
-              <a
-                key={key}
-                href={link}
-                target="_blank"
-                rel="noreferrer"
-                className={`flex items-center gap-2 px-5 py-3 rounded-full text-sm font-medium transition-transform duration-300 hover:scale-105 shadow-md`}
-                style={{
-                  color:
-                    key === "linkedin"
-                      ? "#0A66C2"
-                      : key === "instagram"
-                      ? "#E1306C"
-                      : key === "whatsapp"
-                      ? "#25D366"
-                      : "#fff",
-                  backgroundColor: key === "github" ? "#171515" : "transparent",
-                  border: key === "github" ? "none" : "1px solid #ddd",
-                }}
-              >
-                {icons[key]} {key.charAt(0).toUpperCase() + key.slice(1)}
-              </a>
-            );
-          })}
+            <div className="mt-5">
+              <p className="font-medium text-gray-900 text-lg">
+                Siddhartha Paudel
+              </p>
+              <p className="text-sm text-gray-600">
+                BSc (Hons) Computing — Softwarica College
+              </p>
+              <p className="text-sm text-gray-500 mt-1">
+                Kageshowri, Kathmandu • +977 9849800636
+              </p>
+            </div>
+          </div>
         </motion.div>
+
       </div>
-
-      {/* Profile Card */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.5, duration: 0.7, ease: "easeOut" }}
-        className="flex justify-center"
-      >
-        <div className="w-full max-w-md p-6 rounded-3xl bg-white/30 backdrop-blur-md shadow-2xl border border-white/20 transform hover:scale-105 transition-transform duration-500">
-          {/* Profile Picture */}
-          <div className="w-44 h-44 mx-auto rounded-full overflow-hidden border-4 border-white/30 shadow-lg">
-            <img
-              src={profilePic}
-              alt="Siddhartha Paudel"
-              className="w-full h-full object-cover"
-            />
-          </div>
-
-          <div className="text-center mt-6">
-            <div className="font-bold text-2xl text-gray-800">Siddhartha Paudel</div>
-            <div className="text-sm text-gray-600 mt-1">
-              BSc (Hons) Computing — Softwarica College
-            </div>
-            <div className="text-sm text-gray-600 mt-2">
-              Kageshowri, Kathmandu • +977 9849800636
-            </div>
-          </div>
-        </div>
-      </motion.div>
     </section>
   );
 });

@@ -4,41 +4,45 @@ import Manga from "../images/manga.png";
 import Quick from "../images/quickStay.png";
 import Business from "../images/business.png";
 import port from "../images/port.png";
-import finance from "../images/finance.png"
+import finance from "../images/finance.png";
+
 const ProjectCard = ({ title, desc, tech, github, image }) => (
-  <div className="bg-white/30 backdrop-blur-md rounded-3xl overflow-hidden shadow-lg border border-white/20 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
-    {/* Project Image */}
-    <div className="relative h-48 overflow-hidden rounded-t-3xl">
+  <div className="group rounded-xl border border-gray-200 overflow-hidden transition hover:border-purple-500/40">
+    
+    {/* Image */}
+    <div className="h-44 overflow-hidden bg-gray-100">
       <img
         src={image}
         alt={title}
-        className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+        className="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-90"
       />
     </div>
 
     {/* Content */}
-    <div className="p-6">
-      <h3 className="text-xl font-semibold text-gray-800">{title}</h3>
-      <p className="text-gray-600 mt-2 text-sm">{desc}</p>
+    <div className="p-5">
+      <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
+      <p className="text-sm text-gray-600 mt-2">{desc}</p>
 
+      {/* Tech stack */}
       <div className="flex flex-wrap gap-2 mt-4">
         {tech.map((t) => (
           <span
             key={t}
-            className="text-xs px-3 py-1 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 text-white font-medium"
+            className="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-600"
           >
             {t}
           </span>
         ))}
       </div>
 
+      {/* Link */}
       <a
         href={github}
         target="_blank"
         rel="noreferrer"
-        className="inline-flex items-center justify-center gap-2 mt-5 px-4 py-2 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-full text-sm font-medium shadow-md hover:shadow-lg transition-all duration-300"
+        className="inline-block mt-4 text-sm font-medium text-purple-600 hover:underline"
       >
-        🔗 View on GitHub
+        View on GitHub →
       </a>
     </div>
   </div>
@@ -48,58 +52,59 @@ const Projects = () => {
   const projects = [
     {
       title: "GamifyZone",
-      desc: "Gamified learning platform (MERN).",
+      desc: "Gamified learning platform built with MERN stack.",
       tech: ["React", "Node.js", "MongoDB"],
       github: "https://github.com/SiddharthPaudel/Gamification",
       image: Gamify,
     },
     {
       title: "MangaZone",
-      desc: "Manga reader & rental app.",
+      desc: "Manga reader and rental platform.",
       tech: ["React", "Node.js", "MongoDB"],
       github: "https://github.com/SiddharthPaudel/MangaZone",
       image: Manga,
     },
     {
       title: "Quick Stay",
-      desc: "Hotel booking platform.",
+      desc: "Hotel booking web application.",
       tech: ["React", "Node.js", "MongoDB"],
       github: "https://github.com/SiddharthPaudel/Hotel-Booking-",
       image: Quick,
     },
     {
-      title: "Business-Sales-Finance-Management-System",
-      desc: "Sales-Finance-Management-System",
-      tech: ["NextJS", "Node.js", "MongoDB"],
+      title: "Business Sales & Finance",
+      desc: "Business sales and finance management system.",
+      tech: ["Next.js", "Node.js", "MongoDB"],
       github:
         "https://github.com/SiddharthPaudel/Business-Sales-Finance-Management-System",
       image: Business,
     },
     {
       title: "Portfolio",
-      desc: "My Portfolio.",
-      tech: ["React", "Node.js", "Tailwind CSS"], // technologies used
+      desc: "Personal developer portfolio website.",
+      tech: ["React", "Tailwind CSS"],
       github: "https://github.com/SiddharthPaudel/Portfolio",
-      image: port, // import your image at the top
+      image: port,
     },
     {
-    title: "Finance Tracker",
-    desc: "Track your personal finance, expenses, and budget easily.",
-    tech: ["React", "Node.js", "MongoDB", "Tailwind CSS"],
-    github: "https://github.com/SiddharthPaudel/Finance-Tracker",
-    image: finance
-  }
-
+      title: "Finance Tracker",
+      desc: "Track personal finance, expenses, and budgets.",
+      tech: ["React", "Node.js", "MongoDB"],
+      github: "https://github.com/SiddharthPaudel/Finance-Tracker",
+      image: finance,
+    },
   ];
 
   return (
-    <section id="projects" className="max-w-6xl mx-auto px-6 mt-20">
-      <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-800 relative inline-block">
+    <section id="projects" className="max-w-6xl mx-auto px-6 py-24">
+      <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900">
         Projects
-        <span className="block w-16 h-1 bg-gradient-to-r from-purple-500 to-blue-500 mx-auto mt-2 rounded-full"></span>
       </h2>
+      <p className="text-center text-gray-600 mt-2">
+        A selection of projects I’ve worked on
+      </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-14">
         {projects.map((p) => (
           <ProjectCard key={p.title} {...p} />
         ))}

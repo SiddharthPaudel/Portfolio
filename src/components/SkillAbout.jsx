@@ -4,74 +4,75 @@ import { FaCheckCircle } from "react-icons/fa";
 const SkillsAbout = () => {
   const technicalSkills = [
     "JavaScript",
-    "Node.js",
     "React",
     "Next.js",
-    "SQL",
-    "MongoDB",
-    "Tailwind CSS",
-    "REST API Development",
+    "Node.js",
     "Express.js",
-    "Agile Methodologies",
+    "MongoDB",
+    "SQL",
+    "Tailwind CSS",
+    "REST APIs",
+    "Agile",
   ];
 
   const softSkills = [
-    "Effective Communication",
-    "Problem-solving",
-    "Creativity & Adaptability",
+    "Communication",
+    "Problem Solving",
+    "Adaptability",
     "Attention to Detail",
-    "Presentation Skills",
+    "Presentation",
   ];
 
   return (
-    <section id="skills-about" className="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-2 gap-8">
-      
-      {/* Box 1: About + Education */}
-      <div className="bg-white/30 backdrop-blur-md p-8 rounded-3xl shadow-lg border border-white/20 hover:shadow-2xl transition-all duration-300 space-y-8">
+    <section
+      id="skills-about"
+      className="max-w-6xl mx-auto px-4 py-32 grid md:grid-cols-2 gap-16"
+    >
+      {/* ABOUT + EDUCATION */}
+      <div className="space-y-12">
         <div>
-          <h3 className="text-2xl font-bold mb-4 text-gray-800 border-b-2 border-gradient-to-r from-purple-500 to-blue-500 inline-block pb-1">
-            About Me
-          </h3>
-          <p className="text-gray-700 text-sm leading-relaxed">
-            I’m a frontend developer passionate about creating clean, responsive, and user-friendly web interfaces. 
-            I enjoy learning new tools, collaborating in teams, and building products that not only work but feel great to use.
+          <h3 className="text-xl font-medium mb-4">About</h3>
+          <p className="text-sm text-[#9AA1B2] leading-relaxed max-w-prose">
+            I’m a frontend developer focused on building clean, responsive, and
+            user-friendly interfaces. I enjoy transforming ideas into smooth,
+            practical digital experiences.
           </p>
         </div>
 
         <div>
-          <h3 className="text-2xl font-bold mb-4 text-gray-800 border-b-2 border-gradient-to-r from-purple-500 to-blue-500 inline-block pb-1">
-            Education
-          </h3>
-          <div className="text-sm text-gray-700 space-y-4">
-            <div>
-              <div className="font-semibold text-gray-800">Softwarica College of IT & E-Commerce</div>
-              <div className="text-xs text-gray-600">BSc (Hons) Computing — Expected Graduation: Dec 2025</div>
-              <p className="text-xs mt-1 text-gray-500">
-                Focused on software development, web technologies, and practical programming projects.
-              </p>
+          <h3 className="text-xl font-medium mb-4">Education</h3>
+
+          <div className="space-y-6 text-sm">
+            <div className="border-l border-[#1C2233] pl-4">
+              <div className="font-medium">
+                Softwarica College of IT & E-Commerce
+              </div>
+              <div className="text-[#9AA1B2] text-xs mt-1">
+                BSc (Hons) Computing · 2022 — 2025
+              </div>
             </div>
-            <div>
-              <div className="font-semibold text-gray-800">Valmiki Shiksha Sadan College</div>
-              <div className="text-xs text-gray-600">Grade 12 — Science Stream (B+)</div>
-              <p className="text-xs mt-1 text-gray-500">
-                Developed strong logical thinking and analytical skills.
-              </p>
+
+            <div className="border-l border-[#1C2233] pl-4">
+              <div className="font-medium">
+                Valmiki Shiksha Sadan College
+              </div>
+              <div className="text-[#9AA1B2] text-xs mt-1">
+                Grade 12 · Science
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Box 2: Technical Skills + Soft Skills */}
-      <div className="bg-white/30 backdrop-blur-md p-8 rounded-3xl shadow-lg border border-white/20 hover:shadow-2xl transition-all duration-300 space-y-8">
+      {/* SKILLS */}
+      <div className="space-y-12">
         <div>
-          <h3 className="text-2xl font-bold mb-4 text-gray-800 border-b-2 border-gradient-to-r from-purple-500 to-blue-500 inline-block pb-1">
-            Technical Skills
-          </h3>
+          <h3 className="text-xl font-medium mb-6">Technical Skills</h3>
           <div className="flex flex-wrap gap-3">
             {technicalSkills.map((skill) => (
               <span
                 key={skill}
-                className="px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r from-purple-500 to-blue-500 text-white shadow-sm"
+                className="px-4 py-1.5 rounded-full text-xs border border-[#1C2233] text-[#9AA1B2] hover:text-[#7C7CFF] hover:border-[#7C7CFF] transition"
               >
                 {skill}
               </span>
@@ -80,19 +81,17 @@ const SkillsAbout = () => {
         </div>
 
         <div>
-          <h3 className="text-2xl font-bold mb-4 text-gray-800 border-b-2 border-gradient-to-r from-purple-500 to-blue-500 inline-block pb-1">
-            Soft Skills
-          </h3>
-          <ul className="space-y-2 text-gray-700 text-sm">
+          <h3 className="text-xl font-medium mb-6">Soft Skills</h3>
+          <ul className="space-y-3 text-sm text-[#9AA1B2]">
             {softSkills.map((skill) => (
-              <li key={skill} className="flex items-center gap-2">
-                <FaCheckCircle className="text-purple-500" /> {skill}
+              <li key={skill} className="flex items-center gap-3">
+                <FaCheckCircle className="text-[#7C7CFF] text-xs" />
+                {skill}
               </li>
             ))}
           </ul>
         </div>
       </div>
-
     </section>
   );
 };

@@ -1,44 +1,43 @@
 import React from "react";
-import { Link } from "react-scroll";
 
 const Header = () => {
-  const navLinks = [
-    { to: "projects", label: "Projects" },
-    { to: "skills-about", label: "Skills & About" },
-    { to: "contact", label: "Contact" },
-  ];
-
   return (
-    <header className="py-4 shadow-md bg-white/30 backdrop-blur-md sticky top-0 z-50 border-b border-white/20">
-      <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
-        {/* Logo Section */}
-        <div className="flex items-center gap-3 cursor-pointer">
-          <div className="w-12 h-12 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center text-white font-bold text-lg shadow-md">
-            SP
-          </div>
-          <div>
-            <div className="text-sm font-semibold text-gray-800">Siddhartha Paudel</div>
-            <div className="text-xs text-gray-500">Frontend Developer</div>
-          </div>
-        </div>
+    <header className="fixed top-0 inset-x-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
+      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
 
-        {/* Navigation Links */}
-        <nav className="hidden md:flex gap-6 items-center text-sm font-medium">
-          {navLinks.map((link) => (
-            <Link
-              key={link.to}
-              to={link.to}
-              spy={true}
-              smooth={true}
-              duration={400}
-              offset={-80} // Prevents content from hiding behind header
-              activeClass="text-purple-500 font-semibold border-b-2 border-purple-500 pb-1"
-              className="cursor-pointer text-gray-700 hover:text-purple-500 transition-all duration-300"
+        {/* Logo */}
+        <a
+          href="#home"
+          className="text-sm font-semibold text-gray-900 tracking-tight"
+        >
+          Siddhartha Paudel<span className="text-purple-600">.</span>
+        </a>
+
+        {/* Navigation */}
+        <nav className="hidden md:flex items-center gap-8 text-sm text-gray-600">
+          {["Projects", "Skills & Education", "Contact"].map((item) => (
+            <a
+              key={item}
+              href={`#${item.toLowerCase()}`}
+              className="relative hover:text-gray-900 transition-colors duration-200
+                         after:absolute after:-bottom-1 after:left-0 after:h-[1px]
+                         after:w-0 after:bg-purple-500 hover:after:w-full
+                         after:transition-all"
             >
-              {link.label}
-            </Link>
+              {item}
+            </a>
           ))}
         </nav>
+
+        {/* CTA */}
+        <a
+          href="#contact"
+          className="hidden md:inline-flex items-center rounded-full px-4 py-1.5
+                     text-xs font-medium border border-gray-300 text-gray-900
+                     hover:border-purple-500 hover:text-purple-600 transition"
+        >
+          Let’s talk
+        </a>
       </div>
     </header>
   );
