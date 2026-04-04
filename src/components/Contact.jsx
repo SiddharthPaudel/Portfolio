@@ -1,120 +1,123 @@
-import React, { useState } from "react";
-import axios from "axios";
-
-const BACKEND_URL = import.meta.env.VITE_API_URL;
+import React from "react";
+import { m, LazyMotion, domAnimation } from "framer-motion";
+import { FaGithub, FaLinkedin, FaEnvelope, FaWhatsapp } from "react-icons/fa";
+import { HiArrowUpRight } from "react-icons/hi2";
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-
-  const [status, setStatus] = useState("");
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setStatus("Sending...");
-
-    try {
-      await axios.post(`${BACKEND_URL}/send-email`, formData);
-      setStatus("Message sent successfully.");
-      setFormData({ name: "", email: "", message: "" });
-      setTimeout(() => setStatus(""), 3000);
-    } catch (error) {
-      console.error(error);
-      setStatus("Something went wrong. Please try again.");
-      setTimeout(() => setStatus(""), 3000);
-    }
-  };
+  const contactMethods = [
+    {
+      icon: <FaEnvelope className="text-rose-500" />,
+      label: "Email",
+      value: "psiddhartha62@gmail.com",
+      href: "mailto:psiddhartha62@gmail.com",
+    },
+    {
+      icon: <FaWhatsapp className="text-emerald-500" />,
+      label: "WhatsApp",
+      value: "+977 9849800636",
+      href: "https://wa.me/9849800636",
+    },
+    {
+      icon: <FaLinkedin className="text-blue-600" />,
+      label: "LinkedIn",
+      value: "Siddhartha Paudel",
+      href: "https://www.linkedin.com/in/siddhartha-paudel-53911032b/",
+    },
+    {
+      icon: <FaGithub className="text-slate-900" />,
+      label: "GitHub",
+      value: "SiddharthPaudel",
+      href: "https://github.com/SiddharthPaudel",
+    },
+  ];
 
   return (
-    <section id="contact" className="max-w-6xl mx-auto px-6 py-24">
-      <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900">
-        Contact
-      </h2>
-      <p className="text-center text-gray-600 mt-2">
-        Feel free to reach out — I’m open to opportunities and collaborations
-      </p>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-14">
+    <LazyMotion features={domAnimation}>
+      <section id="contact" className="relative py-32 overflow-hidden bg-white">
         
-        {/* Info */}
-        <div className="space-y-4 text-sm text-gray-700">
-          <p>
-            Email:{" "}
-            <a
-              href="mailto:psiddhartha62@email.com"
-              className="text-purple-600 hover:underline"
-            >
-              psiddhartha62@email.com
-            </a>
-          </p>
-          <p>Phone: +977 9849800636</p>
-          <p>Location: Kathmandu, Nepal</p>
-        </div>
+        {/* Background Accent */}
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-gradient-to-t from-purple-50/50 to-transparent -z-10" />
 
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            placeholder="Your name"
-            required
-            className="w-full rounded-md border border-gray-300 px-4 py-3 text-sm
-                       focus:outline-none focus:ring-2 focus:ring-purple-500"
-          />
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-20 items-center">
+            
+            {/* Left Side: The "Big Pitch" */}
+            <div>
+              <m.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+              >
+                <h2 className="text-xs uppercase tracking-[0.3em] text-purple-600 font-bold mb-6">
+                  Get in Touch
+                </h2>
+                <h3 className="text-5xl md:text-7xl font-bold text-slate-900 tracking-tighter leading-[0.9] mb-8">
+                  Let’s build the <br /> 
+                  <span className="text-slate-300">next big thing.</span>
+                </h3>
+                <p className="text-lg text-slate-500 max-w-md leading-relaxed">
+                  I'm currently based in <span className="text-slate-900 font-medium">Nepal</span> and available for 
+                  freelance projects or full-time roles. If you have an idea, 
+                  let's make it a reality.
+                </p>
+              </m.div>
+            </div>
 
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="Your email"
-            required
-            className="w-full rounded-md border border-gray-300 px-4 py-3 text-sm
-                       focus:outline-none focus:ring-2 focus:ring-purple-500"
-          />
+            {/* Right Side: Direct Links */}
+            <div className="grid sm:grid-cols-2 gap-4">
+              {contactMethods.map((method, i) => (
+                <m.a
+                  key={method.label}
+                  href={method.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                  viewport={{ once: true }}
+                  className="group p-6 bg-slate-50 rounded-2xl border border-slate-100 hover:bg-white hover:border-purple-200 hover:shadow-xl hover:shadow-purple-50 transition-all duration-500"
+                >
+                  <div className="flex flex-col h-full justify-between">
+                    <div className="flex justify-between items-start mb-8">
+                      <div className="p-3 bg-white rounded-xl shadow-sm text-xl">
+                        {method.icon}
+                      </div>
+                      <HiArrowUpRight className="text-slate-300 group-hover:text-purple-600 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" size={20} />
+                    </div>
+                    
+                    <div>
+                      <p className="text-[10px] uppercase tracking-widest text-slate-400 font-bold mb-1">
+                        {method.label}
+                      </p>
+                      <p className="text-sm font-bold text-slate-900 truncate">
+                        {method.value}
+                      </p>
+                    </div>
+                  </div>
+                </m.a>
+              ))}
+            </div>
 
-          <textarea
-            name="message"
-            value={formData.message}
-            onChange={handleChange}
-            placeholder="Your message"
-            required
-            className="w-full h-32 rounded-md border border-gray-300 px-4 py-3 text-sm
-                       focus:outline-none focus:ring-2 focus:ring-purple-500"
-          />
+          </div>
 
-          <button
-            type="submit"
-            className="w-full rounded-md border border-gray-900 py-3 text-sm font-medium
-                       text-gray-900 hover:bg-gray-900 hover:text-white transition"
-          >
-            Send message
-          </button>
-
-          {status && (
-            <p
-              className={`text-sm mt-2 ${
-                status.includes("sent")
-                  ? "text-green-600"
-                  : status.includes("Sending")
-                  ? "text-gray-500"
-                  : "text-red-600"
-              }`}
-            >
-              {status}
+          {/* Footer-lite Branding */}
+          <div className="mt-32 pt-12 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-6">
+            <p className="text-sm text-slate-400">
+              © {new Date().getFullYear()} Siddhartha Paudel. All rights reserved.
             </p>
-          )}
-        </form>
-      </div>
-    </section>
+            <div className="flex items-center gap-2">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              </span>
+              <p className="text-[10px] uppercase tracking-widest font-bold text-slate-500">
+                Available for new opportunities
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </LazyMotion>
   );
 };
 

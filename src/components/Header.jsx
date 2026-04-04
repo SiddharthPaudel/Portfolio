@@ -1,111 +1,93 @@
-import React, { useState } from "react";
+import React, { memo, useState, useEffect } from "react";
+import { m, LazyMotion, domAnimation, AnimatePresence } from "framer-motion";
 
-const Header = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
+const navItems = [
+  { label: "Expertise", href: "#skills" },
+  { label: "About", href: "#about" },
+  { label: "Work", href: "#projects" },
+  { label: "Hire Me", href: "#contact" },
+];
 
-  const navItems = [
-    { label: "Projects", href: "#projects" },
-    { label: "Skills & Education", href: "#skills-education" },
-    { label: "Contact", href: "#contact" },
-  ];
+const Header = memo(() => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 40);
+
+      const sectionIds = ["skills", "about", "projects", "contact"];
+      let currentSection = "home";
+
+      for (const id of sectionIds) {
+        const section = document.getElementById(id);
+        if (section) {
+          const rect = section.getBoundingClientRect();
+          // Detects if section is in the focal area of the screen
+          if (rect.top <= 200 && rect.bottom >= 200) {
+            currentSection = id;
+            break;
+          }
+        }
+      }
+      setActiveSection(currentSection);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); 
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <header className="fixed top-0 inset-x-0 z-50 bg-[#0B1220]/85 backdrop-blur-md border-b border-white/10">
-      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-
-        {/* Logo */}
-        <a
-          href="#home"
-          className="text-sm font-semibold text-white tracking-tight"
+    <LazyMotion features={domAnimation}>
+      <m.header
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        className="fixed top-8 left-0 right-0 z-[100] flex justify-center pointer-events-none"
+      >
+        <nav
+          className={`pointer-events-auto flex items-center gap-6 md:gap-10 px-8 py-3 rounded-full border transition-all duration-500 ${
+            isScrolled
+              ? "bg-white/80 backdrop-blur-xl border-slate-200 shadow-[0_8px_30px_rgb(0,0,0,0.08)]"
+              : "bg-white border-slate-100 shadow-sm"
+          }`}
         >
-          Siddhartha Paudel<span className="text-sky-400">.</span>
-        </a>
-
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-8 text-sm text-slate-300">
-          {navItems.map((item) => (
-            <a
-              key={item.label}
-              href={item.href}
-              className="relative hover:text-white transition-colors
-                         after:absolute after:-bottom-1 after:left-0 after:h-[1px]
-                         after:w-0 after:bg-sky-400 hover:after:w-full
-                         after:transition-all duration-300"
-            >
-              {item.label}
-            </a>
-          ))}
-        </nav>
-
-        {/* Desktop CTA */}
-        <a
-          href="#contact"
-          className="hidden md:inline-flex items-center rounded-full px-4 py-1.5
-                     text-xs font-medium border border-slate-500 text-white
-                     hover:border-sky-400 hover:text-sky-400 transition"
-        >
-          Let’s talk
-        </a>
-
-        {/* Mobile Menu Button */}
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden text-white focus:outline-none"
-          aria-label="Toggle Menu"
-        >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-          >
-            {menuOpen ? (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            ) : (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            )}
-          </svg>
-        </button>
-      </div>
-
-      {/* Mobile Navigation */}
-      {menuOpen && (
-        <div className="md:hidden bg-[#0B1220] border-t border-white/10">
-          <nav className="flex flex-col px-6 py-4 gap-4 text-sm text-slate-300">
-            {navItems.map((item) => (
+          {navItems.map((item) => {
+            const isActive = activeSection === item.href.slice(1);
+            
+            return (
               <a
                 key={item.label}
                 href={item.href}
-                onClick={() => setMenuOpen(false)}
-                className="hover:text-sky-400 transition"
+                className={`relative flex items-center gap-1 text-[10px] md:text-[11px] font-bold uppercase tracking-[0.2em] transition-all duration-300 ${
+                  isActive
+                    ? "text-slate-900"
+                    : "text-slate-400 hover:text-slate-950"
+                }`}
               >
                 {item.label}
-              </a>
-            ))}
 
-            <a
-              href="#contact"
-              onClick={() => setMenuOpen(false)}
-              className="mt-2 inline-flex justify-center rounded-full px-4 py-2
-                         text-xs font-medium border border-slate-500 text-white
-                         hover:border-sky-400 hover:text-sky-400 transition"
-            >
-              Let’s talk
-            </a>
-          </nav>
-        </div>
-      )}
-    </header>
+                {/* Active Indicator (The Black Dot) */}
+                <AnimatePresence>
+                  {isActive && (
+                    <m.div
+                      layoutId="navIndicator"
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0 }}
+                      className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-1 h-1 bg-slate-900 rounded-full"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                </AnimatePresence>
+              </a>
+            );
+          })}
+        </nav>
+      </m.header>
+    </LazyMotion>
   );
-};
+});
 
 export default Header;
